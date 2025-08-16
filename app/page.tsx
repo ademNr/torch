@@ -15,7 +15,7 @@ export default function Home() {
       if (user) {
         router.push("/recognition");
       } else {
-        router.push("/login");
+        router.push("/landing");
       }
     }
   }, [user, loading, router]);
