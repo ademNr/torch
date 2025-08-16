@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true} className={typeof window === 'undefined' ? 'server-class' : undefined} >
       <body
         className={`${inter.variable} font-inter antialiased`}
       >
