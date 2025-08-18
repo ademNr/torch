@@ -43,10 +43,10 @@ export default function LoginPage() {
                     {/* Header Text */}
                     <div className="text-center mb-8">
                         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-                            Welcome back
+                            Lets Gooo !!
                         </h1>
                         <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                            Sign in to find people who look like you
+                            Torch scans millions of dating profiles in seconds
                         </p>
                     </div>
 
@@ -84,25 +84,9 @@ export default function LoginPage() {
                         </button>
                     </div>
 
-                    {/* Divider */}
-                    <div className="relative mb-6">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-gray-200"></div>
-                        </div>
-                        <div className="relative flex justify-center text-xs sm:text-sm">
-                            <span className="bg-white px-4 text-gray-500 font-medium">New here?</span>
-                        </div>
-                    </div>
 
-                    {/* Sign Up Link */}
-                    <div className="text-center mb-6">
-                        <button
-                            onClick={handleGoogleLogin}
-                            className="text-sm sm:text-base font-medium text-red-500 hover:text-red-600 transition-colors duration-200"
-                        >
-                            Create an account with Google
-                        </button>
-                    </div>
+
+
 
                 </div>
 

@@ -5,6 +5,7 @@ import { ArrowRight, Heart, MapPin, Calendar, Sparkles, Users, Flame, User, Sear
 import { useAuth } from "@/context/AuthContext";
 import AppHeader from "@/components/AppHeader";
 
+// Update interfaces
 interface User {
     id: string;
     name: string;
@@ -16,28 +17,27 @@ interface User {
     similarity?: number;
     confidence?: string;
 }
+
 interface SearchStats {
-    totalCandidates: number;
     matchesFound: number;
+    totalCandidates: number;
     processingTime: number;
     similarityThreshold: number;
 }
+
+interface FaceRecognitionResults {
+    matches: User[];
+    searchStats: SearchStats;
+    originalImage: string;
+}
+
 interface UserCardProps {
     user: User;
     index: number;
     onProfileClick: (userId: string) => void;
 }
 
-interface FaceRecognitionResults {
-    matches: User[];
-    searchStats: {
-        totalCandidates: number;
-        matchesFound: number;
-        processingTime: number;
-        similarityThreshold: number;
-    };
-    originalImage: string;
-}
+
 
 const UserCard = ({ user, index, onProfileClick }: UserCardProps) => {
     const [imageError, setImageError] = useState(false);
@@ -93,7 +93,7 @@ const UserCard = ({ user, index, onProfileClick }: UserCardProps) => {
                 {user.similarity !== undefined && (
                     <div className="absolute top-4 right-4">
                         <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1.5 rounded-full text-sm font-bold backdrop-blur-sm shadow-lg">
-                            {user.similarity.toFixed(1)}% Match
+                            {(user.similarity * 100).toFixed(0)}% Match
                         </div>
 
                     </div>
@@ -137,18 +137,22 @@ export default function LookAlikeDashboard() {
     const [originalImage, setOriginalImage] = useState<string | null>(null);
     const [isClient, setIsClient] = useState(false);
 
+    // In the LookAlikeDashboard component:
     useEffect(() => {
         setIsClient(true);
-        // Load face recognition results from sessionStorage
         const storedResults = sessionStorage.getItem('faceRecognitionResults');
         if (storedResults) {
-            const { matches, searchStats, originalImage }: FaceRecognitionResults = JSON.parse(storedResults);
-            setUsers(matches);
-            setFaceRecognitionStats(searchStats);
-            setOriginalImage(originalImage);
-            setIsLoading(false);
+            try {
+                const parsedData: FaceRecognitionResults = JSON.parse(storedResults);
+                setUsers(parsedData.matches);
+                setFaceRecognitionStats(parsedData.searchStats);
+                setOriginalImage(parsedData.originalImage);
+                setIsLoading(false);
+            } catch (error) {
+                console.error('Error parsing session data:', error);
+                router.push('/');
+            }
         } else {
-            // Redirect to main page if no results
             router.push('/');
         }
     }, [router]);
@@ -216,23 +220,14 @@ export default function LookAlikeDashboard() {
                             <div className="flex-1 text-center lg:text-left">
                                 <div className="mb-6">
                                     <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                                        Your Face Recognition Results
+                                        Recognition Results
                                     </h2>
                                     <p className="text-gray-600 text-lg">
                                         Analysis completed successfully
                                     </p>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-4 border border-red-100">
-                                        <div className="text-2xl font-bold text-gray-900 mb-1">{faceRecognitionStats.matchesFound}</div>
-                                        <div className="text-gray-600 text-sm font-medium">Matches Found</div>
-                                    </div>
-                                    <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-4 border border-red-100">
-                                        <div className="text-2xl font-bold text-gray-900 mb-1">{faceRecognitionStats.processingTime}ms</div>
-                                        <div className="text-gray-600 text-sm font-medium">Processing Time</div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>

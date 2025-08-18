@@ -186,7 +186,7 @@ export default function ProfilePage() {
                                 {/* Match Percentage Badge */}
                                 {user.similarity !== undefined && (
                                     <div className="absolute bottom-6 right-6 bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-lg backdrop-blur-sm">
-                                        {user.similarity.toFixed(1)}% Match
+                                        {(user.similarity * 100).toFixed(0)}% Match
                                     </div>
                                 )}
 

@@ -7,33 +7,23 @@ import { useAuth } from '@/context/AuthContext';
 import AppHeader from '@/components/AppHeader';
 
 type Match = {
-    person: {
-        id: string;
-        name: string;
-        age: string;
-        distance: string;
-        imageCount: number;
-        imageUrls: string[];
-    };
+    id: number;
+    name: string;
+    age: number;
+    distance: number;
+    imageUrls: string[];
     similarity: number;
-    confidence: string;
+    confidenceLevel: string;
+    scrapedAt?: string;
 };
 
 type RecognitionResponse = {
-    success: boolean;
-    match: boolean;
     matches: Match[];
-    searchStats: {
-        totalCandidates: number;
-        matchesFound: number;
-        processingTime: number;
-        signatureTime: number;
-        matchTime: number;
-        similarityThreshold: number;
-    };
-    credits?: number;
+    bestMatch?: Match;
+    credits: number;
+    message: string;
+    confidenceLevel?: string;
     error?: string;
-    message?: string;
     ready?: boolean;
     initializationInProgress?: boolean;
     processingStats?: object;
@@ -113,7 +103,7 @@ export default function FaceRecognitionPage() {
             const formData = new FormData();
             formData.append('image', selectedImage);
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/recognize`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/search/image-search`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${user!.token}`
@@ -122,74 +112,51 @@ export default function FaceRecognitionPage() {
             });
 
             if (response.status === 401) {
-                // Force logout
                 logout();
                 router.push('/login');
                 return;
             }
 
-            if (response.status === 402) {
+            if (response.status === 403) {
                 const errorData = await response.json();
                 setRechargeError(errorData.message);
                 setShowRechargeModal(true);
                 refreshUser();
                 return;
             }
+
             const data: RecognitionResponse = await response.json();
-            // Enhanced system busy detection
 
-
-            if (data.error == "Recognition system not ready") {
-                setSystemBusyMessage(
-                    data.message ||
-                    data.error ||
-                    "Database is still being processed. Please try again in a few moments."
-                );
-                setShowSystemBusyModal(true);
-                return;
-            }
             if (!response.ok) {
                 throw new Error(`Server error: ${response.status}`);
             }
 
+            // Transform matches and store in sessionStorage
+            const transformedMatches = data.matches.map(match => ({
+                id: String(match.id),
+                name: match.name,
+                age: String(match.age),
+                distance: String(match.distance),
+                imageUrls: match.imageUrls,
+                bio: `${match.similarity.toFixed(1)}% similarity match - ${match.confidenceLevel} confidence`,
+                interests: [`${match.similarity.toFixed(1)}% Match`],
+                similarity: match.similarity,
+                confidence: match.confidenceLevel
+            }));
 
-            // Debug logging
-            console.log('Full Response data:', JSON.stringify(data, null, 2));
-            console.log('Success:', data.success);
-            console.log('Error:', data.error);
-            console.log('Message:', data.message);
-            console.log('Ready:', data.ready);
-            console.log('InitializationInProgress:', data.initializationInProgress);
+            sessionStorage.setItem('faceRecognitionResults', JSON.stringify({
+                matches: transformedMatches,
+                searchStats: {
+                    matchesFound: data.matches.length,
+                    totalCandidates: 0,
+                    processingTime: 0,
+                    similarityThreshold: 0.8
+                },
+                originalImage: previewUrl
+            }));
 
-
-
-
-
-            setResults(data);
-
-            // Store results in sessionStorage and navigate to dashboard
-            if (data.success) {
-                const transformedMatches = data.matches.map(match => ({
-                    id: match.person.id,
-                    name: match.person.name,
-                    age: match.person.age,
-                    distance: match.person.distance,
-                    imageUrls: match.person.imageUrls,
-                    bio: `${match.similarity.toFixed(1)}% similarity match - ${match.confidence} confidence`,
-                    interests: [`${match.similarity.toFixed(1)}% Match`],
-                    similarity: match.similarity,
-                    confidence: match.confidence
-                }));
-
-                sessionStorage.setItem('faceRecognitionResults', JSON.stringify({
-                    matches: transformedMatches,
-                    searchStats: data.searchStats,
-                    hasMatches: data.match,
-                    originalImage: previewUrl
-                }));
-                refreshUser();
-                router.push('/dashboard');
-            }
+            refreshUser();
+            router.push('/dashboard');
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
             setError(errorMessage);
@@ -223,10 +190,6 @@ export default function FaceRecognitionPage() {
     const retryRecognition = () => {
         closeSystemBusyModal();
         handleSubmit();
-    };
-
-    const similarityToPercentage = (similarity: number) => {
-        return `${similarity.toFixed(1)}%`;
     };
 
     return (
@@ -471,8 +434,6 @@ export default function FaceRecognitionPage() {
                                 >
                                     Reset
                                 </button>
-
-
 
                                 <button
                                     onClick={handleSubmit}

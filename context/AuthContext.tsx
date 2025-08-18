@@ -55,7 +55,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUser(null);
         localStorage.removeItem("user");
         sessionStorage.clear();
-        router.push("/login");
+        router.push("/");
     }, [router]);
 
     // Add refreshUser function
@@ -63,7 +63,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (!user) return;
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user`, {
                 headers: {
                     Authorization: `Bearer ${user.token}`
                 }
