@@ -271,10 +271,10 @@ export default function ProfilePage() {
                                             <div className="w-24 bg-gray-200 rounded-full h-2">
                                                 <div
                                                     className="bg-gradient-to-r from-red-500 to-orange-500 h-2 rounded-full transition-all duration-1000"
-                                                    style={{ width: `${user.similarity}%` }}
+                                                    style={{ width: `${user.similarity * 100}%` }}
                                                 ></div>
                                             </div>
-                                            <span className="font-bold text-red-600">{user.similarity.toFixed(1)}%</span>
+                                            <span className="font-bold text-red-600">{(user.similarity * 100).toFixed(0)}%</span>
                                         </div>
                                     </div>
                                     {user.confidence && (

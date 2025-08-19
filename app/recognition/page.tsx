@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import AppHeader from '@/components/AppHeader';
 
 type Match = {
-    id: number;
+    profileId: String;
     name: string;
     age: number;
     distance: number;
@@ -133,7 +133,7 @@ export default function FaceRecognitionPage() {
 
             // Transform matches and store in sessionStorage
             const transformedMatches = data.matches.map(match => ({
-                id: String(match.id),
+                id: String(match.profileId),
                 name: match.name,
                 age: String(match.age),
                 distance: String(match.distance),

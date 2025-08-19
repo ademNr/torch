@@ -256,7 +256,7 @@ export default function LookAlikeDashboard() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {users.map((user, index) => (
                                 <div
-                                    key={user.id || index}
+                                    key={user.id}
                                     className="animate-in fade-in slide-in-from-bottom duration-700"
                                     style={{ animationDelay: `${index * 100}ms` }}
                                 >
