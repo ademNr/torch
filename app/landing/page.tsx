@@ -237,7 +237,7 @@ const TorchLandingPage = () => {
 
                                         <div className="p-4 sm:p-6 bg-gray-50">
                                             <div className="text-center mb-4 sm:mb-6">
-                                                <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-2">Let's find out on Torch</h3>
+                                                <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-2">Let&apos;s find out on Torch</h3>
                                                 <p className="text-gray-600 text-xs sm:text-sm">Upload a photo to find out if he/she is using a dating app !!</p>
                                             </div>
 
@@ -382,7 +382,7 @@ const TorchLandingPage = () => {
 
                                         <div className="p-6 bg-gray-50">
                                             <div className="text-center mb-6">
-                                                <h3 className="text-lg xl:text-xl font-bold text-gray-900 mb-2">Let's find out on Torch</h3>
+                                                <h3 className="text-lg xl:text-xl font-bold text-gray-900 mb-2">Let&apos;s find out on Torch</h3>
                                                 <p className="text-gray-600 text-sm">Upload a photo to find out if he/she is using a dating app !!</p>
                                             </div>
 
@@ -585,7 +585,7 @@ const TorchLandingPage = () => {
                             Ready to Discover the Truth?
                         </h2>
                         <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-red-100 max-w-2xl mx-auto px-4 sm:px-0">
-                            Join over 50,000 users who've uncovered the truth about their dating lives.
+                            Join over 50,000 users who&apos;ve uncovered the truth about their dating lives.
                             Start your search now - it only takes 30 seconds.
                         </p>
                     </div>

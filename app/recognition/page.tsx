@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import AppHeader from '@/components/AppHeader';
 
 type Match = {
-    profileId: String;
+    profileId: string;
     name: string;
     age: number;
     distance: number;
