@@ -135,7 +135,7 @@ export default function ProfilePage() {
                     </div>
                     <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-3 md:mb-4">Profile Not Found</h2>
                     <p className="text-gray-600 mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
-                        We couldn't find the profile you're looking for. It might have been removed or doesn't exist.
+                        We couldn&apos;t find the profile you&apos;re looking for. It might have been removed or doesn&apos;t exist.
                     </p>
                     <button
                         onClick={() => router.push('/dashboard')}
