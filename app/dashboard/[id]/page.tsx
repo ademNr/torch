@@ -313,23 +313,7 @@ export default function ProfilePage() {
                 </div>
             </div>
 
-            {/* Mobile Action Buttons */}
-            {isMobile && (
-                <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200/50 p-4 flex justify-center gap-6 shadow-2xl">
-                    <button className="p-3 bg-gradient-to-r from-red-500 to-orange-500 rounded-full shadow-lg">
-                        <MessageCircle className="w-6 h-6 text-white" />
-                    </button>
-                    <button
-                        onClick={handleLike}
-                        className={`p-4 rounded-full shadow-lg ${isLiked ? 'bg-red-500' : 'bg-white border border-gray-300'}`}
-                    >
-                        <Heart className={`w-7 h-7 ${isLiked ? 'text-white fill-white' : 'text-red-500'}`} />
-                    </button>
-                    <button className="p-3 bg-white border border-gray-300 rounded-full shadow-lg">
-                        <Share2 className="w-6 h-6 text-gray-700" />
-                    </button>
-                </div>
-            )}
+
 
             <style jsx>{`
                 .hide-scrollbar {
