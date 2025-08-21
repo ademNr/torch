@@ -99,7 +99,7 @@ const TorchLandingPage = () => {
         },
         {
             step: 2,
-            title: "AI Analysis",
+            title: "Precise Analysis",
             description: "Torch scans millions of dating profiles in seconds",
             icon: <Search className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
         },

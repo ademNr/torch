@@ -39,7 +39,7 @@ export default function HomePage() {
             Find Anyone, <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600">Anywhere</span>
           </h1>
           <p className="text-gray-600 text-sm sm:text-lg max-w-2xl mx-auto">
-            Choose your preferred search method and let our AI do the heavy lifting
+            Choose your preferred search method and let Torch do the heavy lifting
           </p>
         </div>
 
@@ -83,7 +83,7 @@ export default function HomePage() {
                 </h2>
 
                 <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base leading-relaxed flex-1">
-                  Simply upload any photo and our advanced AI will analyze facial features to find matching profiles across our database. Perfect for visual searches.
+                  Simply upload any photo and Torch will analyze the image features to find matching profiles across our database. Perfect for visual searches.
                 </p>
 
                 {/* Features - Mobile Optimized */}
@@ -193,21 +193,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Bottom Stats - Mobile Friendly */}
-        {/* <div className="mt-8 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-3xl mx-auto">
-          <div className="text-center p-3 sm:p-4">
-            <div className="text-xl sm:text-3xl font-bold text-orange-600 mb-1 sm:mb-2">99%</div>
-            <div className="text-xs sm:text-sm text-gray-600 font-medium">Accuracy</div>
-          </div>
-          <div className="text-center p-3 sm:p-4 border-x border-gray-200">
-            <div className="text-xl sm:text-3xl font-bold text-red-600 mb-1 sm:mb-2">&lt;3s</div>
-            <div className="text-xs sm:text-sm text-gray-600 font-medium">Average Speed</div>
-          </div>
-          <div className="text-center p-3 sm:p-4">
-            <div className="text-xl sm:text-3xl font-bold text-orange-600 mb-1 sm:mb-2">24/7</div>
-            <div className="text-xs sm:text-sm text-gray-600 font-medium">Available</div>
-          </div>
-        </div> */}
+
       </div>
     </div>
   );

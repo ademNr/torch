@@ -20,7 +20,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({
                 return {
                     icon: <Search className="w-11 h-11 sm:w-14 sm:h-14 text-white drop-shadow-lg" />,
                     message: "Searching profiles...",
-                    subtitle: "Finding the perfect matches for you using advanced AI"
+                    subtitle: "Finding the perfect matches for you"
                 };
             case 'profile':
                 return {
@@ -32,7 +32,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({
                 return {
                     icon: <Zap className="w-11 h-11 sm:w-14 sm:h-14 text-white drop-shadow-lg" />,
                     message: "Processing data...",
-                    subtitle: "Analyzing millions of profiles with AI precision"
+                    subtitle: "Analyzing millions of profiles with precision"
                 };
             default:
                 return {
@@ -76,7 +76,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({
                                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl blur-xl opacity-30 scale-110 animate-pulse"></div>
 
                                 {/* Rotating ring loader */}
-                                <div className="absolute -inset-2 border-4 border-transparent border-t-orange-500 border-r-red-500 rounded-2xl animate-spin"></div>
+                                <div className="absolute -inset-2 border-4 border-transparent border-t-orange-500 border-b-orange-500 border-l-red-500 border-r-red-500 rounded-2xl animate-spin"></div>
                             </div>
                         </div>
 
