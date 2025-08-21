@@ -205,154 +205,370 @@ export default function FaceRecognitionPage() {
                 subtitle="Upload a photo to find matching profiles"
             />
 
-            {/* System Busy Modal */}
+            {/* Enhanced System Busy Modal */}
             {showSystemBusyModal && (
-                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-md w-full overflow-hidden">
-                        <div className="p-6 sm:p-8">
-                            <div className="flex justify-between items-center mb-6">
-                                <h2 className="text-xl sm:text-2xl font-bold text-orange-600">Processing Database</h2>
+                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+                    <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-md w-full overflow-hidden relative transform transition-all duration-300 scale-100 hover:scale-[1.02]">
+                        {/* Background decorative elements */}
+                        <div className="absolute inset-0 overflow-hidden">
+                            <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-orange-100 to-red-100 rounded-full opacity-60 animate-pulse"></div>
+                            <div className="absolute top-16 right-12 w-12 h-12 bg-orange-200 rounded-lg rotate-45 opacity-40 animate-bounce"></div>
+                            <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-gradient-to-tr from-orange-50 to-red-50 rounded-full opacity-80 animate-pulse"></div>
+                            <div className="absolute bottom-20 left-16 w-3 h-3 bg-orange-400 rounded-full animate-ping"></div>
+                            <div className="absolute top-8 left-8 w-2 h-2 bg-red-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+                        </div>
+
+                        <div className="relative z-10 p-6 sm:p-8">
+                            {/* Enhanced Header */}
+                            <div className="flex justify-between items-start mb-8">
+                                <div className="flex items-center gap-4">
+                                    {/* Icon with glow effect */}
+                                    <div className="relative">
+                                        <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-xl transform transition-transform duration-300 hover:scale-105">
+                                            <Clock className="w-7 h-7 text-white animate-pulse drop-shadow-lg" />
+                                        </div>
+                                        {/* Animated glow effect */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl blur-xl opacity-30 scale-110 animate-pulse"></div>
+                                    </div>
+
+                                    <div>
+                                        <h2 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 mb-1">
+                                            Processing Database
+                                        </h2>
+                                        <p className="text-sm text-gray-500 font-medium">AI Recognition System</p>
+                                    </div>
+                                </div>
+
                                 <button
                                     onClick={closeSystemBusyModal}
-                                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                                    className="p-2 rounded-full hover:bg-gray-100 transition-all duration-200 group hover:scale-110"
                                 >
-                                    <X className="w-5 h-5" />
+                                    <X className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                                 </button>
                             </div>
 
-                            <div className="mb-6">
-                                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-4 mb-4 border border-orange-200">
-                                    <div className="flex items-center mb-3">
-                                        <Clock className="w-6 h-6 text-orange-500 mr-3" />
-                                        <p className="text-gray-700 font-medium">
-                                            Recognition system is initializing
-                                        </p>
+                            <div className="mb-8">
+                                {/* Enhanced Main Status Card */}
+                                <div className="bg-gradient-to-r from-orange-50 via-red-50 to-orange-50 rounded-xl p-5 mb-6 border border-orange-200 relative overflow-hidden shadow-sm">
+                                    {/* Animated shimmer effect */}
+                                    <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+
+                                    <div className="relative z-10">
+                                        <div className="flex items-start mb-4">
+                                            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-4 animate-pulse shadow-lg">
+                                                <Clock className="w-6 h-6 text-white" />
+                                            </div>
+                                            <div className="flex-1">
+                                                <p className="text-gray-800 font-bold text-lg mb-2">
+                                                    Recognition system is initializing
+                                                </p>
+                                                {/* Enhanced progress bar */}
+                                                <div className="w-full bg-white/70 rounded-full h-3 overflow-hidden shadow-inner">
+                                                    <div className="h-full bg-gradient-to-r from-orange-500 to-red-600 rounded-full relative animate-pulse">
+                                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-white/50 rounded-lg p-3 mb-4 border border-white/60">
+                                            <p className="text-gray-700 mb-2 font-medium leading-relaxed">
+                                                {systemBusyMessage}
+                                            </p>
+                                        </div>
+
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                                <span className="text-sm text-gray-600 font-medium">System Status: Active</span>
+                                            </div>
+                                            <div className="flex items-center gap-2 px-3 py-1 bg-orange-100 rounded-full">
+                                                <Clock className="w-3 h-3 text-orange-600" />
+                                                <span className="text-xs text-orange-700 font-bold">1-5 minutes</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p className="text-gray-600 mb-3">
-                                        {systemBusyMessage}
-                                    </p>
-                                    <p className="text-sm text-gray-500">
-                                        Our database is currently being processed. This usually takes 1-5 minutes.
-                                    </p>
                                 </div>
 
-                                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                                    <h3 className="font-medium text-gray-900 mb-3">What&apos;s happening:</h3>
-                                    <ul className="space-y-2 text-sm text-gray-600">
-                                        <li className="flex items-center">
-                                            <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-                                            Our system is processing facial recognition data
+                                {/* Enhanced Process Details */}
+                                <div className="bg-gray-50 rounded-xl p-5 border border-gray-200 relative hover:shadow-sm transition-all duration-300">
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                                            <div className="w-3 h-3 bg-white rounded-full"></div>
+                                        </div>
+                                        <h3 className="font-bold text-gray-900 text-lg">What&apos;s happening:</h3>
+                                    </div>
+
+                                    <ul className="space-y-4">
+                                        <li className="flex items-center group hover:bg-white/50 rounded-lg p-2 transition-all duration-200">
+                                            <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-4 animate-pulse shadow-md">
+                                                <div className="w-3 h-3 bg-white rounded-full"></div>
+                                            </div>
+                                            <span className="text-sm text-gray-700 font-medium group-hover:text-gray-900 transition-colors">
+                                                Our system is processing facial recognition data
+                                            </span>
                                         </li>
-                                        <li className="flex items-center">
-                                            <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-                                            New profiles are being added to the database
+                                        <li className="flex items-center group hover:bg-white/50 rounded-lg p-2 transition-all duration-200">
+                                            <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center mr-4 animate-pulse shadow-md" style={{ animationDelay: '0.2s' }}>
+                                                <div className="w-3 h-3 bg-white rounded-full"></div>
+                                            </div>
+                                            <span className="text-sm text-gray-700 font-medium group-hover:text-gray-900 transition-colors">
+                                                New profiles are being added to the database
+                                            </span>
                                         </li>
-                                        <li className="flex items-center">
-                                            <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-                                            Recognition models are being optimized
+                                        <li className="flex items-center group hover:bg-white/50 rounded-lg p-2 transition-all duration-200">
+                                            <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-4 animate-pulse shadow-md" style={{ animationDelay: '0.4s' }}>
+                                                <div className="w-3 h-3 bg-white rounded-full"></div>
+                                            </div>
+                                            <span className="text-sm text-gray-700 font-medium group-hover:text-gray-900 transition-colors">
+                                                Recognition models are being optimized
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
 
+                            {/* Trust Indicator */}
+                            <div className="text-center mb-6">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 rounded-full border border-green-200 shadow-sm">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span className="text-sm font-medium text-green-700">Trusted by 2K+ users</span>
+                                </div>
+                            </div>
+
+                            {/* Enhanced Action Buttons */}
                             <div className="flex gap-3">
                                 <button
                                     onClick={closeSystemBusyModal}
-                                    className="flex-1 px-4 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors font-medium"
+                                    className="flex-1 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-200 font-medium border border-gray-200 hover:border-gray-300 hover:shadow-md"
                                 >
                                     Close
                                 </button>
                                 <button
                                     onClick={retryRecognition}
-                                    className="flex-1 flex items-center justify-center px-4 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:from-orange-600 hover:to-red-600 transition-all font-bold"
+                                    className="flex-1 relative overflow-hidden group bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
                                 >
-                                    <RefreshCw className="w-4 h-4 mr-2" />
-                                    Try Again
+                                    <div className="flex items-center justify-center px-4 py-3 relative z-10">
+                                        <RefreshCw className="w-4 h-4 mr-2 group-hover:rotate-180 transition-transform duration-300" />
+                                        Try Again
+                                    </div>
+
+                                    {/* Button shine effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                                 </button>
                             </div>
                         </div>
+
+                        {/* Bottom decorative gradient */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 animate-pulse"></div>
+
+                        {/* Animated shimmer overlay for entire modal */}
+                        <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/3 to-transparent animate-shimmer-slow"></div>
                     </div>
+
+                    {/* Enhanced Custom Animations */}
+                    <style jsx>{`
+            @keyframes shimmer {
+                0% { transform: translateX(-100%) skewX(-12deg); }
+                100% { transform: translateX(200%) skewX(-12deg); }
+            }
+            @keyframes shimmer-slow {
+                0% { transform: translateX(-100%) skewX(-12deg); }
+                100% { transform: translateX(300%) skewX(-12deg); }
+            }
+            @keyframes fade-in {
+                from { opacity: 0; transform: scale(0.9) translateY(20px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            .animate-shimmer {
+                animation: shimmer 2s infinite;
+            }
+            .animate-shimmer-slow {
+                animation: shimmer-slow 4s infinite;
+            }
+            .animate-in {
+                animation: fade-in 0.3s ease-out;
+            }
+        `}</style>
                 </div>
             )}
 
-            {/* Recharge Credits Modal */}
+            {/* Enhanced Recharge Credits Modal */}
             {showRechargeModal && (
-                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-md w-full overflow-hidden">
-                        <div className="p-6 sm:p-8">
-                            <div className="flex justify-between items-center mb-6">
-                                <h2 className="text-xl sm:text-2xl font-bold text-red-600">Insufficient Credits</h2>
+                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+                    <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-md w-full overflow-hidden relative transform transition-all duration-300 scale-100 hover:scale-[1.02]">
+                        {/* Background decorative elements */}
+                        <div className="absolute inset-0 overflow-hidden">
+                            <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-red-100 to-orange-100 rounded-full opacity-60 animate-pulse"></div>
+                            <div className="absolute top-16 right-12 w-12 h-12 bg-red-200 rounded-lg rotate-45 opacity-40 animate-bounce"></div>
+                            <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-gradient-to-tr from-orange-50 to-red-50 rounded-full opacity-80 animate-pulse"></div>
+                            <div className="absolute bottom-20 left-16 w-3 h-3 bg-red-400 rounded-full animate-ping"></div>
+                            <div className="absolute top-8 left-8 w-2 h-2 bg-orange-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+                        </div>
+
+                        <div className="relative z-10 p-6 sm:p-8">
+                            {/* Enhanced Header */}
+                            <div className="flex justify-between items-start mb-8">
+                                <div className="flex items-center gap-4">
+                                    {/* Icon with glow effect */}
+                                    <div className="relative">
+                                        <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-orange-500 rounded-xl flex items-center justify-center shadow-xl transform transition-transform duration-300 hover:scale-105">
+                                            <div className="relative">
+                                                {/* Credit/Coin Icon */}
+                                                <svg className="w-7 h-7 text-white drop-shadow-lg" viewBox="0 0 24 24" fill="currentColor">
+                                                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1" fill="currentColor" />
+                                                    <path d="M12 6v12M9 9h6M9 15h6" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                                </svg>
+                                                <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full animate-ping opacity-75"></div>
+                                            </div>
+                                        </div>
+                                        {/* Animated glow effect */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-orange-500 rounded-xl blur-xl opacity-30 scale-110 animate-pulse"></div>
+                                    </div>
+
+                                    <div>
+                                        <h2 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-600 mb-1">
+                                            Insufficient Credits
+                                        </h2>
+                                        <p className="text-sm text-gray-500 font-medium">Account Recharge Required</p>
+                                    </div>
+                                </div>
+
                                 <button
                                     onClick={closeRechargeModal}
-                                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                                    className="p-2 rounded-full hover:bg-gray-100 transition-all duration-200 group hover:scale-110"
                                 >
-                                    <X className="w-5 h-5" />
+                                    <X className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
                                 </button>
                             </div>
 
-                            <div className="mb-6">
-                                <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-4 mb-4 border border-red-200">
-                                    <p className="text-gray-700 mb-3">
-                                        {rechargeError || "You don't have enough credits to perform this recognition."}
-                                    </p>
-                                    <p className="font-semibold">Please recharge your account to continue.</p>
-                                </div>
+                            <div className="mb-8">
 
-                                <div className="space-y-4">
-                                    <h3 className="font-medium text-gray-900">Recharge Options:</h3>
 
-                                    <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                                        <p className="text-sm text-gray-600 mb-3">
-                                            Contact us via Instagram or Facebook to recharge your account:
-                                        </p>
+                                {/* Enhanced Recharge Options */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3 mb-4">
 
-                                        <div className="flex flex-col gap-3">
-                                            <a
-                                                href="https://instagram.com/your_instagram"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all font-medium"
-                                            >
-                                                <Instagram className="w-5 h-5" />
-                                                <span>Recharge via Instagram</span>
-                                            </a>
-
-                                            <a
-                                                href="https://facebook.com/your_facebook"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl hover:shadow-lg transition-all font-medium"
-                                            >
-                                                <Facebook className="w-5 h-5" />
-                                                <span>Recharge via Facebook</span>
-                                            </a>
-                                        </div>
+                                        <h3 className="font-bold text-gray-900 text-lg">Recharge Options</h3>
                                     </div>
 
-                                    <div className="text-sm text-gray-500">
-                                        <p className="mb-2">After payment, send us:</p>
-                                        <ul className="list-disc pl-5 space-y-1">
-                                            <li>Your account email: {user?.email}</li>
-                                            <li>Transaction ID or screenshot</li>
-                                            <li>Amount paid (1 credit = $1)</li>
-                                        </ul>
+                                    <div className="bg-gray-50 rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-all duration-300 relative overflow-hidden">
+                                        <div className="relative z-10">
+                                            <div className="flex items-center gap-2 mb-4">
+                                                <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                                </svg>
+                                                <p className="text-gray-700 font-semibold">
+                                                    Contact us via social media to recharge:
+                                                </p>
+                                            </div>
+
+                                            <div className="space-y-3 mb-5">
+                                                <a
+                                                    href="https://instagram.com/your_instagram"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="group flex items-center gap-3 px-4 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg hover:shadow-pink-500/25 transition-all duration-300 font-medium transform hover:scale-[1.02] relative overflow-hidden"
+                                                >
+                                                    <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                                                    <span className="flex-1">Recharge via Instagram</span>
+                                                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    {/* Button shimmer effect */}
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                                                </a>
+
+                                                <a
+                                                    href="https://facebook.com/your_facebook"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="group flex items-center gap-3 px-4 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 font-medium transform hover:scale-[1.02] relative overflow-hidden"
+                                                >
+                                                    <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                                                    <span className="flex-1">Recharge via Facebook</span>
+                                                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    {/* Button shimmer effect */}
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                                                </a>
+                                            </div>
+
+                                            {/* Enhanced Instructions */}
+                                            <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
+                                                <div className="flex items-center gap-2 mb-3">
+                                                    <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                    <p className="text-sm text-gray-700 font-semibold">After payment, send us:</p>
+                                                </div>
+                                                <ul className="space-y-2 text-sm text-gray-600">
+                                                    <li className="flex items-start gap-2">
+                                                        <div className="w-1.5 h-1.5 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
+                                                        <span><span className="font-medium text-gray-700">Your account email:</span> {user?.email}</span>
+                                                    </li>
+                                                    <li className="flex items-start gap-2">
+                                                        <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mt-2 flex-shrink-0"></div>
+                                                        <span>Payment screenshot</span>
+                                                    </li>
+                                                    <li className="flex items-start gap-2">
+                                                        <div className="w-1.5 h-1.5 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
+                                                        <span><span className="font-medium text-gray-700">Amount paid</span> (1 credit = 1TND)</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
+
+
+                            {/* Enhanced Close Button */}
                             <div className="flex justify-end">
                                 <button
                                     onClick={closeRechargeModal}
-                                    className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors font-medium"
+                                    className="px-6 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-xl hover:from-gray-200 hover:to-gray-300 transition-all duration-300 font-medium border border-gray-200 hover:border-gray-300 hover:shadow-md transform hover:scale-[1.02]"
                                 >
                                     Close
                                 </button>
                             </div>
                         </div>
+
+                        {/* Bottom decorative gradient */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 animate-pulse"></div>
+
+                        {/* Animated shimmer overlay for entire modal */}
+                        <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/3 to-transparent animate-shimmer-slow"></div>
                     </div>
+
+                    {/* Enhanced Custom Animations */}
+                    <style jsx>{`
+            @keyframes shimmer {
+                0% { transform: translateX(-100%) skewX(-12deg); }
+                100% { transform: translateX(200%) skewX(-12deg); }
+            }
+            @keyframes shimmer-slow {
+                0% { transform: translateX(-100%) skewX(-12deg); }
+                100% { transform: translateX(300%) skewX(-12deg); }
+            }
+            @keyframes fade-in {
+                from { opacity: 0; transform: scale(0.9) translateY(20px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            .animate-shimmer {
+                animation: shimmer 2s infinite;
+            }
+            .animate-shimmer-slow {
+                animation: shimmer-slow 4s infinite;
+            }
+            .animate-in {
+                animation: fade-in 0.3s ease-out;
+            }
+        `}</style>
                 </div>
             )}
-
             <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
                 {/* Hero Section */}
                 <div className="text-center mb-8 sm:mb-12">
