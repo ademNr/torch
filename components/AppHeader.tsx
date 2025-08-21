@@ -44,7 +44,7 @@ export default function AppHeader({
                     <div className="flex items-center space-x-2 sm:space-x-4 min-w-0">
                         <div
                             className="flex items-center cursor-pointer"
-                            onClick={() => router.push(user ? "/recognition" : "/")}
+                            onClick={() => router.push("/")}
                         >
                             <FireIcon className=" text-red-500 " size={38} />
 
@@ -84,7 +84,7 @@ export default function AppHeader({
 
                         {showNewSearch && user && (
                             <button
-                                onClick={() => router.push("/recognition")}
+                                onClick={() => router.push("/")}
                                 className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white py-2.5 px-6 rounded-2xl font-semibold hover:shadow-xl hover:shadow-red-500/25 transition-all duration-300 hover:scale-105"
                             >
                                 <Search className="w-4 h-4" />
@@ -153,7 +153,7 @@ export default function AppHeader({
                             {showNewSearch && (
                                 <button
                                     onClick={() => {
-                                        router.push("/recognition");
+                                        router.push("/");
                                         setMobileMenuOpen(false);
                                     }}
                                     className="flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white py-3 px-4 rounded-2xl font-semibold w-full"

@@ -31,6 +31,7 @@ interface User {
     rating?: number;
     similarity?: number; // Added from recognition data
     confidence?: string; // Added from recognition data
+    searchType?: string; // Added to track the source of the search
 }
 
 export default function ProfilePage() {
@@ -40,6 +41,7 @@ export default function ProfilePage() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [isLiked, setIsLiked] = useState(false);
+    const [searchType, setSearchType] = useState<string>('image'); // Default to image search
 
     useEffect(() => {
         if (params.id) {
@@ -47,9 +49,21 @@ export default function ProfilePage() {
 
             // Get user data from sessionStorage
             const storedUser = sessionStorage.getItem('selectedUser');
+            const storedResults = sessionStorage.getItem('faceRecognitionResults');
 
             if (storedUser) {
                 const parsedUser: User = JSON.parse(storedUser);
+
+                // Check if we have search type information
+                if (storedResults) {
+                    try {
+                        const parsedResults = JSON.parse(storedResults);
+                        setSearchType(parsedResults.searchType || 'image');
+                    } catch (e) {
+                        console.error('Error parsing search results:', e);
+                    }
+                }
+
                 setUser(parsedUser);
                 setIsLoading(false);
             } else {
@@ -183,8 +197,8 @@ export default function ProfilePage() {
                                     </div>
                                 )}
 
-                                {/* Match Percentage Badge */}
-                                {user.similarity !== undefined && (
+                                {/* Match Percentage Badge - Only show for image search */}
+                                {searchType === 'image' && user.similarity !== undefined && (
                                     <div className="absolute bottom-6 right-6 bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-lg backdrop-blur-sm">
                                         {(user.similarity * 100).toFixed(0)}% Match
                                     </div>
@@ -235,8 +249,8 @@ export default function ProfilePage() {
                                         <span className="font-medium text-lg">{user.age} years old</span>
                                     </div>
 
-                                    {/* Confidence Level */}
-                                    {user.confidence && (
+                                    {/* Confidence Level - Only show for image search */}
+                                    {searchType === 'image' && user.confidence && (
                                         <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-orange-50 border border-red-100 rounded-2xl px-4 py-2 mb-4">
                                             <Sparkles className="w-4 h-4 text-red-500" />
                                             <span className="text-sm font-medium text-gray-700">
@@ -247,18 +261,12 @@ export default function ProfilePage() {
                                 </div>
                             </div>
 
-                            {/* Bio Section */}
-                            {/* Removed bio section */}
 
-                            {/* Interests */}
-                            {/* Removed interests section */}
                         </div>
 
-                        {/* Action Buttons */}
-                        {/* Removed action buttons section */}
 
-                        {/* Match Statistics */}
-                        {user.similarity !== undefined && (
+                        {/* Match Statistics - Only show for image search */}
+                        {searchType === 'image' && user.similarity !== undefined && (
                             <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-3xl p-6 border border-red-100">
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                                     <Star className="w-5 h-5 text-red-500" />

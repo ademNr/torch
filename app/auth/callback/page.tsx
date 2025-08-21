@@ -31,7 +31,7 @@ function AuthCallbackContent() {
                 }, token);
 
                 // Redirect after successful login
-                router.push("/recognition");
+                router.push("/");
             } catch (error) {
                 console.error("Authentication failed:", error);
                 setError("Authentication failed. Invalid token format");
@@ -39,7 +39,7 @@ function AuthCallbackContent() {
             }
         } else {
             setError("Missing authentication token");
-            router.push("/login");
+            router.push("/");
         }
     }, [token, router]);
 

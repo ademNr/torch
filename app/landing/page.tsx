@@ -54,7 +54,7 @@ const TorchLandingPage = () => {
         if (loading) return;
 
         if (user) {
-            router.push('/recognize');
+            router.push('/');
         } else {
             router.push('/login');
         }
@@ -87,7 +87,7 @@ const TorchLandingPage = () => {
         { number: "2.1M+", label: "Profiles" },
         { number: "98.5%", label: "Accuracy Rate" },
         { number: "2K+", label: "Users" },
-        { number: "50ms", label: "Average Search Time" }
+        { number: "1s", label: "Average Search Time" }
     ];
 
     const howItWorks = [
@@ -238,7 +238,7 @@ const TorchLandingPage = () => {
                                         <div className="p-4 sm:p-6 bg-gray-50">
                                             <div className="text-center mb-4 sm:mb-6">
                                                 <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-2">Let&apos;s find out on Torch</h3>
-                                                <p className="text-gray-600 text-xs sm:text-sm">Upload a photo to find out if he/she is using a dating app !!</p>
+                                                <p className="text-gray-600 text-xs sm:text-sm">Upload a photo to find out if He/She is using a dating app !!</p>
                                             </div>
 
                                             {/* Upload area */}
@@ -251,7 +251,7 @@ const TorchLandingPage = () => {
                                                     </div>
                                                 </div>
                                                 <h4 className="font-bold text-gray-900 mb-2 text-sm sm:text-base">Upload Your Photo</h4>
-                                                <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Drag & drop your photo here or click the button below</p>
+                                                <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Drag & drop a photo here or click the button below</p>
                                                 <button className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-2 sm:px-4 sm:py-2 lg:px-6 rounded-xl font-medium text-xs sm:text-sm flex items-center justify-center mx-auto">
                                                     <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
@@ -319,7 +319,7 @@ const TorchLandingPage = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-1 sm:mb-2">Your Face Recognition Results</h3>
+                                                        <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-1 sm:mb-2">Recognition Results</h3>
                                                         <p className="text-gray-600 text-xs sm:text-sm">Analysis completed successfully</p>
                                                     </div>
 
@@ -383,7 +383,7 @@ const TorchLandingPage = () => {
                                         <div className="p-6 bg-gray-50">
                                             <div className="text-center mb-6">
                                                 <h3 className="text-lg xl:text-xl font-bold text-gray-900 mb-2">Let&apos;s find out on Torch</h3>
-                                                <p className="text-gray-600 text-sm">Upload a photo to find out if he/she is using a dating app !!</p>
+                                                <p className="text-gray-600 text-sm">Upload a photo to find out if He/She is using a dating app !!</p>
                                             </div>
 
                                             <div className="border-2 border-dashed border-red-300 rounded-2xl p-6 xl:p-8 text-center bg-white mb-4">
@@ -395,7 +395,7 @@ const TorchLandingPage = () => {
                                                     </div>
                                                 </div>
                                                 <h4 className="font-bold text-gray-900 mb-2">Upload Your Photo</h4>
-                                                <p className="text-gray-600 text-sm mb-4">Drag & drop your photo here or click the button below</p>
+                                                <p className="text-gray-600 text-sm mb-4">Drag & drop a photo here or click the button below</p>
                                                 <button className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 xl:px-6 rounded-xl font-medium text-sm flex items-center justify-center mx-auto">
                                                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
@@ -585,7 +585,7 @@ const TorchLandingPage = () => {
                             Ready to Discover the Truth?
                         </h2>
                         <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-red-100 max-w-2xl mx-auto px-4 sm:px-0">
-                            Join over 50,000 users who&apos;ve uncovered the truth about their dating lives.
+                            Join over 2,000 users who&apos;ve uncovered the truth about their dating lives.
                             Start your search now - it only takes 30 seconds.
                         </p>
                     </div>

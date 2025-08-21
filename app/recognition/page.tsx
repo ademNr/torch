@@ -2,7 +2,7 @@
 import { useState, useRef, ChangeEvent, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, X, Upload, User, Sparkles, Heart, Flame, Instagram, Facebook, Clock, RefreshCw } from 'lucide-react';
+import { ArrowRight, X, Upload, User, Sparkles, Heart, Flame, Instagram, Facebook, Clock, RefreshCw, Camera, Eye, Zap } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import AppHeader from '@/components/AppHeader';
 
@@ -47,7 +47,7 @@ export default function FaceRecognitionPage() {
 
     useEffect(() => {
         if (!loading && !user) {
-            router.push("/login");
+            router.push("/");
         }
     }, [user, loading, router]);
 
@@ -113,7 +113,7 @@ export default function FaceRecognitionPage() {
 
             if (response.status === 401) {
                 logout();
-                router.push('/login');
+                router.push('/');
                 return;
             }
 
@@ -193,35 +193,35 @@ export default function FaceRecognitionPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900">
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
             <Head>
                 <title>Find whether someone you know is using a dating app | Face Recognition</title>
                 <meta name="description" content="Find whether someone you know is using a dating app" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            {/* Header */}
             <AppHeader
                 title="Torch"
-                subtitle="Upload a photo to find her/him"
+                subtitle="Upload a photo to find matching profiles"
             />
 
+            {/* System Busy Modal */}
             {showSystemBusyModal && (
                 <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
-                        <div className="p-6">
-                            <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-bold text-orange-600">Processing Database</h2>
+                    <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-md w-full overflow-hidden">
+                        <div className="p-6 sm:p-8">
+                            <div className="flex justify-between items-center mb-6">
+                                <h2 className="text-xl sm:text-2xl font-bold text-orange-600">Processing Database</h2>
                                 <button
                                     onClick={closeSystemBusyModal}
-                                    className="p-2 rounded-full hover:bg-gray-100"
+                                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                                 >
                                     <X className="w-5 h-5" />
                                 </button>
                             </div>
 
                             <div className="mb-6">
-                                <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-4 mb-4 border border-orange-100">
+                                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-4 mb-4 border border-orange-200">
                                     <div className="flex items-center mb-3">
                                         <Clock className="w-6 h-6 text-orange-500 mr-3" />
                                         <p className="text-gray-700 font-medium">
@@ -258,13 +258,13 @@ export default function FaceRecognitionPage() {
                             <div className="flex gap-3">
                                 <button
                                     onClick={closeSystemBusyModal}
-                                    className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors"
+                                    className="flex-1 px-4 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors font-medium"
                                 >
                                     Close
                                 </button>
                                 <button
                                     onClick={retryRecognition}
-                                    className="flex-1 flex items-center justify-center px-4 py-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all"
+                                    className="flex-1 flex items-center justify-center px-4 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:from-orange-600 hover:to-red-600 transition-all font-bold"
                                 >
                                     <RefreshCw className="w-4 h-4 mr-2" />
                                     Try Again
@@ -275,24 +275,23 @@ export default function FaceRecognitionPage() {
                 </div>
             )}
 
-
             {/* Recharge Credits Modal */}
             {showRechargeModal && (
                 <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
-                        <div className="p-6">
-                            <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-bold text-red-600">Insufficient Credits</h2>
+                    <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-md w-full overflow-hidden">
+                        <div className="p-6 sm:p-8">
+                            <div className="flex justify-between items-center mb-6">
+                                <h2 className="text-xl sm:text-2xl font-bold text-red-600">Insufficient Credits</h2>
                                 <button
                                     onClick={closeRechargeModal}
-                                    className="p-2 rounded-full hover:bg-gray-100"
+                                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                                 >
                                     <X className="w-5 h-5" />
                                 </button>
                             </div>
 
                             <div className="mb-6">
-                                <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-4 mb-4 border border-red-100">
+                                <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-4 mb-4 border border-red-200">
                                     <p className="text-gray-700 mb-3">
                                         {rechargeError || "You don't have enough credits to perform this recognition."}
                                     </p>
@@ -312,7 +311,7 @@ export default function FaceRecognitionPage() {
                                                 href="https://instagram.com/your_instagram"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
+                                                className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all font-medium"
                                             >
                                                 <Instagram className="w-5 h-5" />
                                                 <span>Recharge via Instagram</span>
@@ -322,7 +321,7 @@ export default function FaceRecognitionPage() {
                                                 href="https://facebook.com/your_facebook"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl hover:shadow-lg transition-all"
+                                                className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl hover:shadow-lg transition-all font-medium"
                                             >
                                                 <Facebook className="w-5 h-5" />
                                                 <span>Recharge via Facebook</span>
@@ -344,7 +343,7 @@ export default function FaceRecognitionPage() {
                             <div className="flex justify-end">
                                 <button
                                     onClick={closeRechargeModal}
-                                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300"
+                                    className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors font-medium"
                                 >
                                     Close
                                 </button>
@@ -354,31 +353,65 @@ export default function FaceRecognitionPage() {
                 </div>
             )}
 
-            <main className="max-w-6xl mx-auto px-4 py-8">
-                <div className="text-center mb-10">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-                        Lets find out on <span className="text-red-500">Torch</span>
+            <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+                {/* Hero Section */}
+                <div className="text-center mb-8 sm:mb-12">
+                    <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600">Powered</span> Image Recognition
                     </h1>
-                    <p className="text-gray-600 max-w-md mx-auto">
-                        Upload a photo to find out if he/she is using a dating app !!
+                    <p className="text-gray-600 text-sm sm:text-lg max-w-2xl mx-auto">
+                        Upload any photo and let Torch analyze the image to find matching profiles
                     </p>
                 </div>
 
-                <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {/* Centered Upload Section */}
-                        <div className="flex flex-col items-center justify-center">
+                <div className="max-w-4xl mx-auto">
+                    <div className="relative bg-white rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 border border-gray-100 overflow-hidden">
+                        {/* Background Elements */}
+                        <div className="absolute inset-0 overflow-hidden">
+                            <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-orange-100 to-red-100 rounded-full opacity-50"></div>
+                            <div className="absolute top-12 right-8 w-8 h-8 bg-orange-200 rounded-lg rotate-45 opacity-30"></div>
+                            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-tr from-orange-50 to-red-50 rounded-full opacity-60"></div>
+
+                        </div>
+
+                        <div className="relative z-10">
+                            {/* Header */}
+                            <div className="flex items-center justify-between mb-6 sm:mb-8">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-3 sm:p-4 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl">
+                                        <Camera className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                                    </div>
+                                    <div className="px-3 py-1 bg-orange-100 rounded-full">
+                                        <span className="text-xs font-semibold text-orange-700">PRECISE SEARCH</span>
+                                    </div>
+                                </div>
+                                {error && (
+                                    <div className="px-3 py-1 bg-red-100 rounded-full">
+                                        <span className="text-xs font-semibold text-red-700">ERROR</span>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Error Display */}
+                            {error && (
+                                <div className="mb-6 bg-red-50 text-red-700 p-4 rounded-xl text-sm border border-red-200 flex items-center gap-2">
+                                    <div className="w-4 h-4 bg-red-200 rounded-full flex-shrink-0"></div>
+                                    {error}
+                                </div>
+                            )}
+
+                            {/* Upload Section */}
                             <div
-                                className={`w-full max-w-md mx-auto rounded-2xl p-8 text-center flex flex-col items-center justify-center border-2 border-dashed transition-all duration-300
-                                    ${isDragging ? 'border-red-400 bg-red-50' : 'border-gray-300 hover:border-red-300'}
-                                    ${previewUrl ? 'min-h-[400px]' : 'min-h-[450px]'}`}
+                                className={`w-full rounded-xl p-6 sm:p-8 text-center flex flex-col items-center justify-center border-2 border-dashed transition-all duration-300 mb-6
+                                    ${isDragging ? 'border-orange-400 bg-orange-50' : 'border-gray-300 hover:border-orange-300 bg-gray-50'}
+                                    ${previewUrl ? 'min-h-[320px] sm:min-h-[400px]' : 'min-h-[280px] sm:min-h-[350px]'}`}
                                 onDragOver={handleDragOver}
                                 onDragLeave={handleDragLeave}
                                 onDrop={handleDrop}
                             >
                                 {previewUrl ? (
-                                    <div className="relative w-full h-full">
-                                        <div className="relative aspect-square w-full mx-auto overflow-hidden rounded-xl">
+                                    <div className="relative w-full max-w-sm mx-auto">
+                                        <div className="aspect-square w-full overflow-hidden rounded-xl">
                                             <img
                                                 src={previewUrl}
                                                 alt="Preview"
@@ -387,21 +420,19 @@ export default function FaceRecognitionPage() {
                                         </div>
                                         <button
                                             onClick={handleReset}
-                                            className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors shadow-lg"
+                                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors shadow-lg"
                                         >
                                             <X className="w-4 h-4" />
                                         </button>
                                     </div>
                                 ) : (
                                     <div className="flex flex-col items-center justify-center w-full">
-                                        <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center mb-6">
-                                            <div className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center">
-                                                <Upload className="w-8 h-8 text-white" />
-                                            </div>
+                                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-orange-100 flex items-center justify-center mb-4 sm:mb-6">
+                                            <Upload className="w-8 h-8 sm:w-10 sm:h-10 text-orange-600" />
                                         </div>
-                                        <h2 className="text-xl font-bold text-gray-900 mb-2">Upload Your Photo</h2>
-                                        <p className="text-gray-600 mb-6 max-w-xs">
-                                            Drag & drop your photo here or click the button below
+                                        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">Upload Your Photo</h2>
+                                        <p className="text-gray-600 mb-4 sm:mb-6 max-w-xs text-sm sm:text-base">
+                                            Drag & drop a photo here or click to select
                                         </p>
 
                                         <input
@@ -414,23 +445,26 @@ export default function FaceRecognitionPage() {
                                         />
                                         <label
                                             htmlFor="image-upload"
-                                            className="inline-flex items-center cursor-pointer py-3 px-8 rounded-full font-medium transition-all duration-300 shadow-lg bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 hover:shadow-xl"
+                                            className="inline-flex items-center cursor-pointer py-3 sm:py-4 px-6 sm:px-8 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 shadow-lg bg-gradient-to-r from-orange-500 to-red-600 text-white hover:from-orange-600 hover:to-red-700 hover:shadow-xl"
                                         >
-                                            <Upload className="w-5 h-5 mr-2" />
+                                            <Upload className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                                             Select Photo
                                         </label>
-                                        <p className="mt-4 text-sm text-gray-500">
+                                        <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-gray-500">
                                             JPG, PNG, WEBP formats accepted
                                         </p>
                                     </div>
                                 )}
                             </div>
 
-                            <div className="mt-6 w-full max-w-md flex flex-col sm:flex-row gap-3">
+
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                                 <button
                                     onClick={handleReset}
                                     disabled={isLoading}
-                                    className="flex-1 flex items-center justify-center py-3 px-4 rounded-full font-medium transition-all duration-300 bg-gray-100 hover:bg-gray-200 text-gray-700"
+                                    className="flex-1 flex items-center justify-center py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-medium transition-all duration-300 bg-gray-100 hover:bg-gray-200 text-gray-700 disabled:opacity-50"
                                 >
                                     Reset
                                 </button>
@@ -438,24 +472,22 @@ export default function FaceRecognitionPage() {
                                 <button
                                     onClick={handleSubmit}
                                     disabled={isLoading || !selectedImage}
-                                    className={`flex-1 flex items-center justify-center py-3 px-4 rounded-full font-bold transition-all duration-300 shadow-lg
+                                    className={`flex-1 flex items-center justify-center py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 shadow-lg
                                         ${isLoading || !selectedImage
                                             ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                                            : 'bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 hover:shadow-xl'
+                                            : 'bg-gradient-to-r from-orange-500 to-red-600 text-white hover:from-orange-600 hover:to-red-700 hover:shadow-xl hover:shadow-orange-500/25'
                                         }`}
                                 >
                                     {isLoading ? (
                                         <span className="flex items-center justify-center">
-                                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                            </svg>
-                                            Analyzing...
+                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
+                                            Analyzing Photo...
                                         </span>
                                     ) : (
                                         <>
-                                            <Sparkles className="w-5 h-5 mr-2" />
+                                            <Camera className="w-5 h-5 mr-2" />
                                             Find Matches
+                                            <ArrowRight className="w-5 h-5 ml-2" />
                                         </>
                                     )}
                                 </button>

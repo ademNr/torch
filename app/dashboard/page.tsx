@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Heart, MapPin, Calendar, Sparkles, Users, Flame, User, Search, Filter } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import AppHeader from "@/components/AppHeader";
+import LoadingPage from "@/components/LoadingPage";
 
 // Update interfaces
 interface User {
@@ -28,18 +29,18 @@ interface SearchStats {
 interface FaceRecognitionResults {
     matches: User[];
     searchStats: SearchStats;
-    originalImage: string;
+    originalImage: string | null;
+    searchType?: string;
 }
 
 interface UserCardProps {
     user: User;
     index: number;
     onProfileClick: (userId: string) => void;
+    showSimilarity: boolean; // New prop to control similarity display
 }
 
-
-
-const UserCard = ({ user, index, onProfileClick }: UserCardProps) => {
+const UserCard = ({ user, index, onProfileClick, showSimilarity }: UserCardProps) => {
     const [imageError, setImageError] = useState(false);
     const [imageLoading, setImageLoading] = useState(true);
     const [isHovered, setIsHovered] = useState(false);
@@ -89,13 +90,12 @@ const UserCard = ({ user, index, onProfileClick }: UserCardProps) => {
                 <div className={`absolute inset-0 bg-gradient-to-t from-red-900/20 via-transparent to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'
                     }`} />
 
-                {/* Similarity badge */}
-                {user.similarity !== undefined && (
+                {/* Similarity badge - Only show for image search */}
+                {showSimilarity && user.similarity !== undefined && (
                     <div className="absolute top-4 right-4">
                         <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1.5 rounded-full text-sm font-bold backdrop-blur-sm shadow-lg">
                             {(user.similarity * 100).toFixed(0)}% Match
                         </div>
-
                     </div>
                 )}
 
@@ -111,7 +111,8 @@ const UserCard = ({ user, index, onProfileClick }: UserCardProps) => {
                         </div>
                     </div>
 
-                    {user.confidence && (
+                    {/* Confidence badge - Only show for image search */}
+                    {showSimilarity && user.confidence && (
                         <div className="flex items-center gap-2 mt-2">
                             <div className="px-2 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium">
                                 {user.confidence} confidence
@@ -135,9 +136,9 @@ export default function LookAlikeDashboard() {
     const [isLoading, setIsLoading] = useState(true);
     const [faceRecognitionStats, setFaceRecognitionStats] = useState<SearchStats | null>(null);
     const [originalImage, setOriginalImage] = useState<string | null>(null);
+    const [searchType, setSearchType] = useState<string>('image');
     const [isClient, setIsClient] = useState(false);
 
-    // In the LookAlikeDashboard component:
     useEffect(() => {
         setIsClient(true);
         const storedResults = sessionStorage.getItem('faceRecognitionResults');
@@ -147,6 +148,7 @@ export default function LookAlikeDashboard() {
                 setUsers(parsedData.matches);
                 setFaceRecognitionStats(parsedData.searchStats);
                 setOriginalImage(parsedData.originalImage);
+                setSearchType(parsedData.searchType || 'image');
                 setIsLoading(false);
             } catch (error) {
                 console.error('Error parsing session data:', error);
@@ -167,37 +169,18 @@ export default function LookAlikeDashboard() {
     };
 
     if (!isClient || isLoading) {
-        return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex items-center justify-center">
-                <div className="text-center">
-                    <div className="w-24 h-24 bg-gradient-to-r from-red-500 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 animate-pulse shadow-2xl">
-                        <Flame className="w-12 h-12 text-white" />
-                    </div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-3">
-                        Loading Your Torch Results
-                    </h2>
-                    <div className="flex items-center justify-center gap-2 text-gray-600">
-                        <div className="w-2 h-2 bg-red-500 rounded-full animate-bounce" />
-                        <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                        <div className="w-2 h-2 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                        <span className="ml-2 font-medium">
-                            Analyzing facial features...
-                        </span>
-                    </div>
-                </div>
-            </div>
-        );
+        return <LoadingPage message="Loading" />
     }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
             {/* Enhanced Header */}
             <AppHeader
-                title="Torch"
-                subtitle="Upload a photo to find her/him"
+                title={"Torch"}
             />
+
             {/* Enhanced Face Recognition Stats Section */}
-            {faceRecognitionStats && (
+            {faceRecognitionStats && searchType === 'image' && (
                 <div className="max-w-7xl mx-auto px-4 py-8">
                     <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-8 border border-gray-200/50">
                         <div className="flex flex-col lg:flex-row gap-8 items-center">
@@ -208,9 +191,7 @@ export default function LookAlikeDashboard() {
                                         alt="Your uploaded photo"
                                         className="w-32 h-32 rounded-3xl object-cover shadow-2xl border-4 border-white"
                                     />
-                                    <div className="absolute -top-3 -right-3 bg-gradient-to-r from-red-500 to-orange-500 rounded-full w-12 h-12 flex items-center justify-center text-white font-bold shadow-lg">
-                                        <User className="w-6 h-6" />
-                                    </div>
+
                                     <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-3 py-1 shadow-lg border border-gray-200">
                                         <span className="text-xs font-semibold text-gray-700"> ? </span>
                                     </div>
@@ -226,16 +207,15 @@ export default function LookAlikeDashboard() {
                                         Analysis completed successfully
                                     </p>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             )}
 
+
             {/* Enhanced Results Grid */}
-            <div className="max-w-7xl mx-auto px-4 pb-12">
+            <div className="max-w-7xl mx-auto px-4 pb-12 py-8">
                 {users.length > 0 ? (
                     <>
                         <div className="flex items-center justify-between mb-8">
@@ -244,13 +224,10 @@ export default function LookAlikeDashboard() {
                                     Your Matches ({users.length})
                                 </h3>
                                 <p className="text-gray-600 mt-1">
-                                    Sorted by similarity score
+                                    {searchType === 'image' ? 'Sorted by similarity score' : 'Matching your criteria'}
                                 </p>
                             </div>
-                            <div className="hidden md:flex items-center gap-2">
-                                <Filter className="w-4 h-4 text-gray-400" />
-                                <span className="text-sm text-gray-600">Best matches first</span>
-                            </div>
+
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -264,6 +241,7 @@ export default function LookAlikeDashboard() {
                                         user={user}
                                         index={index}
                                         onProfileClick={handleProfileClick}
+                                        showSimilarity={searchType === 'image'} // Pass the search type
                                     />
                                 </div>
                             ))}
@@ -276,29 +254,32 @@ export default function LookAlikeDashboard() {
                                 <Users className="w-16 h-16 text-white" />
                             </div>
                             <h3 className="text-3xl font-bold text-gray-800 mb-4">
-                                No Torch Matches Found
+                                {searchType === 'image' ? 'No Torch Matches Found' : 'No Filter Matches Found'}
                             </h3>
                             <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                                We couldn&apos;t find anyone who looks similar.
-                                Try uploading a different photo of the same person.
+                                {searchType === 'image'
+                                    ? "We couldn't find anyone who looks similar. Try uploading a different photo of the same person."
+                                    : "No profiles match your search criteria. Try adjusting your filters for better results."
+                                }
                             </p>
                             <div className="space-y-4">
                                 <button
-                                    onClick={() => router.push('/')}
+                                    onClick={() => router.push(searchType === 'image' ? '/recognition' : '/filter')}
                                     className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-2xl font-semibold hover:shadow-xl hover:shadow-red-500/25 transition-all duration-300 hover:scale-105"
                                 >
-                                    Try Another Photo
+                                    {searchType === 'image' ? 'Try Another Photo' : 'Adjust Filters'}
                                 </button>
                                 <p className="text-sm text-gray-500">
-                                    Make sure the photo is clear enough
+                                    {searchType === 'image'
+                                        ? 'Make sure the photo is clear enough'
+                                        : 'Try broadening your search criteria'
+                                    }
                                 </p>
                             </div>
                         </div>
                     </div>
                 )}
             </div>
-
-
         </div>
     );
 }
