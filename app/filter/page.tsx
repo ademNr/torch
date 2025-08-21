@@ -461,7 +461,7 @@ export default function FilterSearchPage() {
                                                     </li>
                                                     <li className="flex items-start gap-2">
                                                         <div className="w-1.5 h-1.5 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
-                                                        <span><span className="font-medium text-gray-700">Amount paid</span> (1 credit = 1TND)</span>
+                                                        <span><span className="font-medium text-gray-700">Amount paid</span> (1 credit = 1TND = 1 search)</span>
                                                     </li>
                                                 </ul>
                                             </div>
