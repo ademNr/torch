@@ -11,8 +11,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Torch",
+  title: "Torch - Profile Detection Tool",
   description: "Find people who are using Tinder or other dating apps",
+  icons: [
+    {
+      url: "/faviconn.ico",
+
+    },]
+
 };
 
 export default function RootLayout({
