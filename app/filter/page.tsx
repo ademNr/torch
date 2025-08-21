@@ -412,7 +412,7 @@ export default function FilterSearchPage() {
 
                                             <div className="space-y-3 mb-5">
                                                 <a
-                                                    href="https://instagram.com/your_instagram"
+                                                    href="https://www.instagram.com/torch.tn"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="group flex items-center gap-3 px-4 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg hover:shadow-pink-500/25 transition-all duration-300 font-medium transform hover:scale-[1.02] relative overflow-hidden"
@@ -427,7 +427,7 @@ export default function FilterSearchPage() {
                                                 </a>
 
                                                 <a
-                                                    href="https://facebook.com/your_facebook"
+                                                    href="https://www.facebook.com/people/Torch-tn/61579730637571"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="group flex items-center gap-3 px-4 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 font-medium transform hover:scale-[1.02] relative overflow-hidden"
