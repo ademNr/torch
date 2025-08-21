@@ -510,7 +510,7 @@ export default function FaceRecognitionPage() {
                                                     </li>
                                                     <li className="flex items-start gap-2">
                                                         <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mt-2 flex-shrink-0"></div>
-                                                        <span>Payment screenshot</span>
+                                                        <span className="font-medium text-gray-700">Payment screenshot</span>
                                                     </li>
                                                     <li className="flex items-start gap-2">
                                                         <div className="w-1.5 h-1.5 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
