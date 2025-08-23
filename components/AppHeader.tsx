@@ -60,8 +60,8 @@ export default function AppHeader({
                         {user && (
                             <div className="flex items-center gap-3">
                                 <div className="flex items-center gap-2 bg-gradient-to-r from-red-50 to-orange-50 rounded-full px-4 py-2 border border-red-100">
-                                    <Sparkles className="w-4 h-4 text-red-500" />
-                                    <span className="text-sm text-gray-600">Credits: {user.credits}</span>
+                                    <span className="text-base">🔥</span>
+                                    <span className="text-sm text-gray-600">Flames: {user.credits}</span>
                                 </div>
 
                                 <button
@@ -107,7 +107,7 @@ export default function AppHeader({
                     <div className="flex md:hidden items-center gap-2">
                         {user && (
                             <div className="flex items-center gap-1 bg-gradient-to-r from-red-50 to-orange-50 rounded-full px-2 sm:px-3 py-1.5 border border-red-100">
-                                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-red-500" />
+                                <span className="text-base">🔥</span>
                                 <span className="text-xs sm:text-sm text-gray-600">{user.credits}</span>
                             </div>
                         )}
