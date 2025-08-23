@@ -74,7 +74,7 @@ const UserCard = ({ user, index, onProfileClick, showSimilarity }: UserCardProps
                         <Image
                             src={user.imageUrls[0]}
                             alt={user.name}
-                            onError={() => { setImageError(true); setImageLoading(false); }}
+                            //onError={() => { setImageError(true); setImageLoading(false); }}
                             onLoad={() => setImageLoading(false)}
                             className={`w-full h-full object-cover transition-all duration-700 ${imageLoading ? 'opacity-0 scale-110' : 'opacity-100'
                                 } ${isHovered ? 'scale-110' : 'scale-100'}`}
