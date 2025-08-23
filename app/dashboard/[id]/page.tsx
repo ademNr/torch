@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-
+import Image from 'next/image';
 interface User {
     id: string;
     name: string;
@@ -172,7 +172,7 @@ export default function ProfilePage() {
                         <div className="relative">
                             <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-xl md:shadow-2xl border border-gray-200 bg-gray-100">
                                 <div className="relative pb-[125%] md:pb-[100%]"> {/* Adjusted aspect ratio for mobile */}
-                                    <img
+                                    <Image
                                         src={user.imageUrls[currentImageIndex] || user.imageUrls[0]}
                                         alt={user.name}
                                         onLoad={handleImageLoad}
@@ -237,7 +237,7 @@ export default function ProfilePage() {
                                                 : 'border-gray-200 hover:border-gray-300 hover:scale-105'
                                                 }`}
                                         >
-                                            <img src={img} alt="" className="w-full h-full object-cover" />
+                                            <Image src={img} alt="" className="w-full h-full object-cover" />
                                         </button>
                                     ))}
                                 </div>

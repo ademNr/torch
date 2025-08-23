@@ -5,7 +5,7 @@ import { ArrowRight, Heart, MapPin, Calendar, Sparkles, Users, Flame, User, Sear
 import { useAuth } from "@/context/AuthContext";
 import AppHeader from "@/components/AppHeader";
 import LoadingPage from "@/components/LoadingPage";
-
+import Image from 'next/image';
 // Update interfaces
 interface User {
     id: string;
@@ -71,7 +71,7 @@ const UserCard = ({ user, index, onProfileClick, showSimilarity }: UserCardProps
                     </div>
                 ) : (
                     <>
-                        <img
+                        <Image
                             src={user.imageUrls[0]}
                             alt={user.name}
                             onError={() => { setImageError(true); setImageLoading(false); }}
@@ -186,7 +186,7 @@ export default function LookAlikeDashboard() {
                         <div className="flex flex-col lg:flex-row gap-8 items-center">
                             <div className="flex-shrink-0">
                                 <div className="relative">
-                                    <img
+                                    <Image
                                         src={originalImage || ''}
                                         alt="Your uploaded photo"
                                         className="w-32 h-32 rounded-3xl object-cover shadow-2xl border-4 border-white"

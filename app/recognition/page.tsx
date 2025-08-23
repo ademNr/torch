@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowRight, X, Upload, User, Sparkles, Heart, Flame, Instagram, Facebook, Clock, RefreshCw, Camera, Eye, Zap } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import AppHeader from '@/components/AppHeader';
-
+import Image from 'next/image';
 type Match = {
     profileId: string;
     name: string;
@@ -628,7 +628,7 @@ export default function FaceRecognitionPage() {
                                 {previewUrl ? (
                                     <div className="relative w-full max-w-sm mx-auto">
                                         <div className="aspect-square w-full overflow-hidden rounded-xl">
-                                            <img
+                                            <Image
                                                 src={previewUrl}
                                                 alt="Preview"
                                                 className="w-full h-full object-cover rounded-xl shadow-md"
