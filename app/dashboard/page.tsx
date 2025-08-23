@@ -71,10 +71,12 @@ const UserCard = ({ user, index, onProfileClick, showSimilarity }: UserCardProps
                     </div>
                 ) : (
                     <>
-                        <Image
+                        <img
                             src={user.imageUrls[0]}
                             alt={user.name}
-                            //onError={() => { setImageError(true); setImageLoading(false); }}
+
+
+                            onError={() => { setImageError(true); setImageLoading(false); }}
                             onLoad={() => setImageLoading(false)}
                             className={`w-full h-full object-cover transition-all duration-700 ${imageLoading ? 'opacity-0 scale-110' : 'opacity-100'
                                 } ${isHovered ? 'scale-110' : 'scale-100'}`}
@@ -186,7 +188,8 @@ export default function LookAlikeDashboard() {
                         <div className="flex flex-col lg:flex-row gap-8 items-center">
                             <div className="flex-shrink-0">
                                 <div className="relative">
-                                    <Image
+                                    <img
+
                                         src={originalImage || ''}
                                         alt="Your uploaded photo"
                                         className="w-32 h-32 rounded-3xl object-cover shadow-2xl border-4 border-white"

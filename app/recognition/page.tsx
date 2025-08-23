@@ -628,7 +628,8 @@ export default function FaceRecognitionPage() {
                                 {previewUrl ? (
                                     <div className="relative w-full max-w-sm mx-auto">
                                         <div className="aspect-square w-full overflow-hidden rounded-xl">
-                                            <Image
+                                            <img
+
                                                 src={previewUrl}
                                                 alt="Preview"
                                                 className="w-full h-full object-cover rounded-xl shadow-md"
