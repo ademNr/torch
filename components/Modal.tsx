@@ -1,20 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Instagram, Facebook, ArrowRight } from 'lucide-react';
+
 interface RechargeModalProps {
     isOpen: boolean;
     onClose: () => void;
     userEmail: string | undefined;
 }
+
 const RechargeModal = ({
     isOpen,
     onClose,
     userEmail
 }: RechargeModalProps) => {
+    // Prevent background scrolling when modal is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
+    // Handle backdrop click
+    const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    };
+
     return (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full mx-4 overflow-hidden relative">
+        <div
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto"
+            onClick={handleBackdropClick}
+        >
+            <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full mx-4 my-8 overflow-hidden relative">
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-white to-red-50/30 pointer-events-none"></div>
 
