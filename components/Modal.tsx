@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { X, Instagram, Facebook, ArrowRight } from 'lucide-react';
 
 interface RechargeModalProps {
@@ -12,6 +12,19 @@ const RechargeModal = ({
     onClose,
     userEmail
 }: RechargeModalProps) => {
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    // Scroll to top when modal opens
+    useEffect(() => {
+        if (isOpen && modalRef.current) {
+            // Scroll the modal content to top
+            modalRef.current.scrollTo(0, 0);
+
+            // Also scroll the window to top in case of page scroll
+            window.scrollTo(0, 0);
+        }
+    }, [isOpen]);
+
     // Prevent background scrolling when modal is open
     useEffect(() => {
         if (isOpen) {
@@ -39,16 +52,20 @@ const RechargeModal = ({
             className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto"
             onClick={handleBackdropClick}
         >
-            <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full mx-4 my-8 overflow-hidden relative">
+            <div
+                ref={modalRef}
+                className="bg-white rounded-3xl shadow-2xl max-w-sm w-full mx-4 my-8 overflow-hidden relative max-h-[90vh] overflow-y-auto"
+            >
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-white to-red-50/30 pointer-events-none"></div>
 
                 <div className="relative z-10 p-5 sm:p-6">
 
+
                     {/* Pricing Plans */}
                     <div className="space-y-3 mb-6">
                         {/* Boufadhouh - Starter */}
-                        <div className="relative bg-gray-50/80 rounded-xl p-4 border border-gray-200/50 hover:border-gray-300/70 transition-all duration-300 cursor-pointer group">
+                        <div className="relative bg-gray-100 rounded-xl p-4 border border-gray-200 hover:border-gray-300/70 transition-all duration-300 cursor-pointer group">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <h4 className="font-semibold text-gray-900 text-sm mb-1">Allah Le Tafthahna</h4>
@@ -163,7 +180,7 @@ const RechargeModal = ({
                             <div className="space-y-1 text-sm text-gray-600">
                                 <div>• Your email: <span className="font-medium text-gray-800">{userEmail}</span></div>
                                 <div>• Package name</div>
-                                <div>• Payment screenshot</div>
+                                <div>• Payment screenshot D17</div>
                             </div>
                         </div>
                     </div>
@@ -177,8 +194,6 @@ const RechargeModal = ({
                     </button>
                 </div>
 
-                {/* Bottom accent */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-orange-500"></div>
             </div>
         </div>
     );
