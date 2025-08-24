@@ -44,30 +44,6 @@ const RechargeModal = ({
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-white to-red-50/30 pointer-events-none"></div>
 
                 <div className="relative z-10 p-5 sm:p-6">
-                    {/* Header */}
-                    <div className="flex justify-between items-center mb-6">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2c-1.5 4-4 6-7 7 0 0 2.5 2.5 7 2.5S19 9 19 9c-3-1-5.5-3-7-7z" />
-                                    <path d="M12 17.5c-1.5 0-2.5-1-2.5-2.5 0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5c0 1.5-1 2.5-2.5 2.5z" />
-                                    <path d="M12 22c3.5 0 6-2.5 6-6 0-2-1-4-3-5.5 0 0 .5 1.5-1 3-1.5 1.5-2 1-2 1s.5-1.5-1-3c-1.5-1.5-1-3-1-3-2 1.5-3 3.5-3 5.5 0 3.5 2.5 6 6 6z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h2 className="text-xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
-                                    Recharge Flames
-                                </h2>
-                                <p className="text-gray-500 text-xs">Choose your plan</p>
-                            </div>
-                        </div>
-                        <button
-                            onClick={onClose}
-                            className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
-                        >
-                            <X className="w-5 h-5 text-gray-400" />
-                        </button>
-                    </div>
 
                     {/* Pricing Plans */}
                     <div className="space-y-3 mb-6">
