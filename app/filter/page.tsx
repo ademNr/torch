@@ -135,8 +135,6 @@ export default function FilterSearchPage() {
         } catch (err) {
             console.error("Search error:", err);
             setError(err instanceof Error ? err.message : "An unexpected error occurred");
-        } finally {
-            setIsLoading(false);
         }
     };
     const closeRechargeModal = () => {
@@ -151,7 +149,7 @@ export default function FilterSearchPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 pt-24" >
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 " >
             <AppHeader
                 title="Torch"
                 subtitle="Find profiles by name and age"
