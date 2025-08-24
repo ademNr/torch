@@ -45,11 +45,12 @@ export default function FilterSearchPage() {
         }));
     };
     const retrySearch = (e: React.FormEvent) => {
+        e.preventDefault(); // Add this
         closeSystemBusyModal();
         handleSubmit(e);
     };
     const handleSubmit = async (e: React.FormEvent) => {
-
+        e.preventDefault(); // Add this
         if (user?.credits === 0) {
             setShowRechargeModal(true);
             return;
@@ -135,12 +136,9 @@ export default function FilterSearchPage() {
         } catch (err) {
             console.error("Search error:", err);
             setError(err instanceof Error ? err.message : "An unexpected error occurred");
+        } finally {
+            setIsLoading(false);
         }
-    };
-    const closeRechargeModal = () => {
-        refreshUser();
-        setShowRechargeModal(false);
-        setRechargeError(null);
     };
 
     const closeSystemBusyModal = () => {

@@ -180,11 +180,7 @@ export default function FaceRecognitionPage() {
         }
     };
 
-    const closeRechargeModal = () => {
-        refreshUser();
-        setShowRechargeModal(false);
-        setRechargeError(null);
-    };
+
 
     const closeSystemBusyModal = () => {
         setShowSystemBusyModal(false);
