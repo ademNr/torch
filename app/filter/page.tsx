@@ -50,7 +50,10 @@ export default function FilterSearchPage() {
     };
     const handleSubmit = async (e: React.FormEvent) => {
 
-
+        if (user?.credits === 0) {
+            setShowRechargeModal(true);
+            return;
+        }
         setRechargeError(null);
         setSystemBusyMessage(null);
         e.preventDefault();

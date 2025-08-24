@@ -94,7 +94,10 @@ export default function FaceRecognitionPage() {
             setError('Please select an image first');
             return;
         }
-
+        if (user?.credits === 0) {
+            setShowRechargeModal(true);
+            return;
+        }
         setIsLoading(true);
         setError(null);
         setRechargeError(null);
